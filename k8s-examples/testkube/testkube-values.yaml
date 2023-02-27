@@ -138,9 +138,9 @@ testkube-api:
       nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST"
       nginx.ingress.kubernetes.io/cors-allow-credentials: "false"
       # specify the name of the global IP address resource to be associated with the HTTP(S) Load Balancer.
-      kubernetes.io/ingress.global-static-ip-name: testkube-demo
+      #kubernetes.io/ingress.global-static-ip-name: testkube-demo
       # add an annotation indicating the issuer to use.
-      # cert-manager.io/cluster-issuer: letsencrypt-prod
+      # cert-manager.io/cluster-issuer: letsencrypt-production
       # controls whether the ingress is modified ‘in-place’,
       # or a new one is created specifically for the HTTP01 challenge.
       # acme.cert-manager.io/http01-edit-in-place: "true"
@@ -201,12 +201,12 @@ testkube-api:
 
     path: /results/(v\d/.*)
     hosts:
-      - demo.testkube.io
+      - testkube.k8s.mabl.se
     tlsenabled: "true"
     tls: # < placing a host in the TLS config will indicate a certificate should be created
       - hosts:
-          - demo.testkube.io
-        secretName: testkube-demo-cert-secret
+          - testkube.k8s.mabl.se
+        secretName: testkube-cert-secret
   cliIngress:
     enabled: true
     annotations:
@@ -224,12 +224,12 @@ testkube-api:
       scopes: ""
     path: /api/(v\d/.*)
     hosts:
-      - demo.testkube.io
+      - testkube.k8s.mabl.se
     tlsenabled: "false"
     tls: # < placing a host in the TLS config will indicate a certificate should be created
       - hosts:
-          - demo.testkube.io
-        secretName: testkube-demo-cert-secret
+          - testkube.k8s.mabl.se
+        secretName: testkube-cert-secret
   storage:
     endpoint: ""
     endpoint_port: "9000"
@@ -287,23 +287,21 @@ testkube-dashboard:
       nginx.ingress.kubernetes.io/cors-allow-methods: "GET"
       nginx.ingress.kubernetes.io/cors-allow-credentials: "false"
       # specify the name of the global IP address resource to be associated with the HTTP(S) Load Balancer.
-      kubernetes.io/ingress.global-static-ip-name: testkube-demo
+      #kubernetes.io/ingress.global-static-ip-name: testkube-demo
       # add an annotation indicating the issuer to use.
-      cert-manager.io/cluster-issuer: letsencrypt-prod
+      cert-manager.io/cluster-issuer: letsencrypt-production
       # controls whether the ingress is modified ‘in-place’,
       # or a new one is created specifically for the HTTP01 challenge.
       acme.cert-manager.io/http01-edit-in-place: "true"
     path: /
     hosts:
-      - demo.testkube.io
-      - dashboard.testkube.io
+      - testkube.k8s.mabl.se
     tlsenabled: "true"
     tls: # < placing a host in the TLS config will indicate a certificate should be created
       - hosts:
-          - demo.testkube.io
-          - dashboard.testkube.io
-        secretName: testkube-demo-cert-secret
-  apiServerEndpoint: "demo.testkube.io/results" #get the address of the endpoint or set it using helm
+          - testkube.k8s.mabl.se
+        secretName: testkube-cert-secret
+  apiServerEndpoint: "testkube.k8s.mabl.se/results" #get the address of the endpoint or set it using helm
   oauth2:
     enabled: false
     name: oauth2-proxy
@@ -320,7 +318,7 @@ testkube-dashboard:
       githubOrg: ""
       cookieSecret: ""
       cookieSecure: "false"
-      redirectUrl: "http://demo.testkube.io/oauth2/callback"
+      redirectUrl: "http://testkube.k8s.mabl.se/oauth2/callback"
 
   ##Test Connection pod
   testConnection:
