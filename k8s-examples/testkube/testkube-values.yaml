@@ -137,6 +137,9 @@ testkube-api:
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST"
       nginx.ingress.kubernetes.io/cors-allow-credentials: "false"
+      nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+      nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+      nginx.ingress.kubernetes.io/access-control-allow-origin: "*"
       # specify the name of the global IP address resource to be associated with the HTTP(S) Load Balancer.
       #kubernetes.io/ingress.global-static-ip-name: testkube-demo
       # add an annotation indicating the issuer to use.
@@ -286,6 +289,8 @@ testkube-dashboard:
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-methods: "GET"
       nginx.ingress.kubernetes.io/cors-allow-credentials: "false"
+      nginx.ingress.kubernetes.io/auth-url: https://$host/oauth2/auth
+      nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start?rd=$escaped_request_uri
       # specify the name of the global IP address resource to be associated with the HTTP(S) Load Balancer.
       #kubernetes.io/ingress.global-static-ip-name: testkube-demo
       # add an annotation indicating the issuer to use.
@@ -308,8 +313,16 @@ testkube-dashboard:
     path: /oauth2
     port: 4180
     selector: k8s-app
+    args:
+      - --provider=github
+      - --scope=user:email
+      - --auth-logging=true
+      - --email-domain=*
+      - --upstream=file:///dev/null
+      - --show-debug-on-error=true
     image:
-      repository: quay.io/oauth2-proxy/oauth2-proxy
+      registry: quay.io
+      repository: oauth2-proxy/oauth2-proxy
       tag: latest
       pullPolicy: Always
     env:
@@ -318,7 +331,10 @@ testkube-dashboard:
       githubOrg: ""
       cookieSecret: ""
       cookieSecure: "false"
-      redirectUrl: "http://testkube.k8s.mabl.se/oauth2/callback"
+      redirectUrl: "https://testkube.k8s.mabl.se/oauth2/callback"
+    ingress:
+      annotations:
+        kubernetes.io/ingress.class: nginx
 
   ##Test Connection pod
   testConnection:
