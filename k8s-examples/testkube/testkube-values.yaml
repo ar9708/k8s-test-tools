@@ -211,7 +211,7 @@ testkube-api:
           - testkube.k8s.mabl.se
         secretName: testkube-cert-secret
   cliIngress:
-    enabled: true
+    enabled: false
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/rewrite-target: /$1
