@@ -5,7 +5,7 @@
 
 This Terraform configuration will setup a EKS cluster in your AWS account, then provision
 a [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/) for the Kubernetes
-cluster and setup DNS names for it. Finally, it will deploy a couple of deplyoments exposed to the world via
+cluster and setup DNS names for it. Finally, it will deploy a couple of deployments exposed to the world via
 the [Nginx Ingress Controller](https://aws.amazon.com/premiumsupport/knowledge-center/eks-access-kubernetes-services/).
 
 ## What are the Pre-Requisites?
