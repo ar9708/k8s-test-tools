@@ -10,11 +10,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - eks.mabl.se
-        - hello-kubernetes.k8s.mabl.online
+        - v1517.mabl.online
+        - hello-kubernetes.v1517.mabl.online
       secretName: hello-kubernetes-tls-secret
   rules:
-    - host: eks.mabl.se
+    - host: v1517.mabl.online
       http:
         paths:
           - path: /hello-kubernetes/
@@ -24,7 +24,7 @@ spec:
                 name: hello-kubernetes-on-path
                 port:
                   number: 80
-    - host: hello-kubernetes.k8s.mabl.online
+    - host: hello-kubernetes.v1517.mabl.online
       http:
         paths:
           - path: /
