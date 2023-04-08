@@ -94,4 +94,4 @@ Open the address in your browser and expect to be redirected to the Auth0 identi
     open https://vs-location.eks.mabl.online/
 
 After authenticating, you are redirected to a beautiful Angular UI for administrating your locations. Then go
-celebrating! :boom:
+celebrate! :boom:
