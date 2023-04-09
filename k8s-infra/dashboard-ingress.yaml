@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: public
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  name: kubernetes-dashboard
+  namespace: kube-system
+spec:
+  tls:
+    - hosts:
+        - kubernetes-dashboard.v1517.mabl.online
+      secretName: kubernetes-dashboard-ingress-cert
+  rules:
+    - host: kubernetes-dashboard.v1517.mabl.online
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kubernetes-dashboard
+                port:
+                  number: 443
