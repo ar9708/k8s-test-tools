@@ -1,0 +1,20 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: hostpath-mnt-2tb-m2
+provisioner: microk8s.io/hostpath
+reclaimPolicy: Retain
+parameters:
+  pvDir: /mnt/2tb-m2/microk8s-hostpath
+volumeBindingMode: WaitForFirstConsumer
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: hostpath-mnt-4tb-ssd
+provisioner: microk8s.io/hostpath
+reclaimPolicy: Retain
+parameters:
+  pvDir: /mnt/4tb-ssd/microk8s-hostpath
+volumeBindingMode: WaitForFirstConsumer
