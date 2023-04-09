@@ -2,19 +2,19 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ebs-claim
+  name: hostpath-test-claim
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: ebs-sc
+  storageClassName: microk8s-hostpath
   resources:
     requests:
-      storage: 4Gi
+      storage: 1Gi
 ---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ebs-app
+  name: hostpath-test-app
 spec:
   containers:
     - name: app
@@ -27,4 +27,4 @@ spec:
   volumes:
     - name: persistent-storage
       persistentVolumeClaim:
-        claimName: ebs-claim
+        claimName: hostpath-test-claim
