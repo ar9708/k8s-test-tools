@@ -27,11 +27,35 @@ Ensure that the test has started and that there are 4 test jobs running:
 
     kubectl get k6 && kubectl get jobs
 
-Re-run `"kubectl get jobs"` until they are completed and terminated. Then create and execute a more heavily distributed
-load test:
+Re-run `"kubectl get jobs"` until they are completed and terminated.
+
+
+## Running a Scripted Load Test, Distributed
+
+Create and execute a more heavily distributed load test:
 
     kubectl create configmap k6-watch-news-video --from-file k6-watch-news-video.js
     kubectl apply -f k6-watch-news-video.yml
+
+Follow the test execution using `k9s` and command-line:
+
+    kubectl get k6 && kubectl get jobs && kubectl top pod && kubectl get pods
+
+
+## Running a Browser Load Test, Distributed
+
+Build and push a custom k6 Operator with Chromium installed:
+
+    cd k6-browser-operator/
+    docker build -t ar9708/k6-browser-operator .
+    docker push ar9708/k6-browser-operator
+
+Switch back to the `./k8s-examples/k6/` directory and create the script `ConfigMap` and apply/execute the test manifest
+file:
+
+    cd ../
+    kubectl create configmap k6-browser-test --from-file k6-browser-test.js
+    kubectl apply -f k6-browser-test.yml
 
 Follow the test execution using `k9s` and command-line:
 
