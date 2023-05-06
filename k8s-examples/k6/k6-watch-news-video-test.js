@@ -11,8 +11,9 @@ import http from 'k6/http'
 
 export const options = {
   stages: [
-    {duration: '4m', target: 960},
-    {duration: '5m', target: 960},
+    {duration: '4m', target: 2400},
+    {duration: '4m', target: 3600},
+    {duration: '4m', target: 4800},
     {duration: '30s', target: 0},
   ],
   thresholds: {
@@ -32,7 +33,7 @@ const getFakeIp = () => {
     Math.ceil(Math.random() * 255),
   ]
   const fakeIp = ipSegments.join('.')
-  console.info(`Generated fake IP ${fakeIp}`)
+  console.debug(`Generated fake IP ${fakeIp}`)
   return fakeIp
 }
 
